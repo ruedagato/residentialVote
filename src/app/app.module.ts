@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     AngularFireAuthModule,
     AngularFireFunctionsModule,
     MatProgressSpinnerModule,
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent],

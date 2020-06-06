@@ -24,6 +24,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     QuestionsComponent,
   ],
   imports: [
+    FormsModule,
     CommonModule,
     AdminRoutingModule,
     LayoutModule,
