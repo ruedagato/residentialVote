@@ -1,1 +1,28 @@
-<p>register works!</p>
+<div class="temp">
+  <mat-card class="content">
+    <mat-card-content>
+      <form class="form" autocomplete="off" [formGroup]="registerForm" (ngSubmit)="registerUser()">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput formControlName="name" />
+          <mat-error>{{ getError(registerForm.get('name')) }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Correo</mat-label>
+          <input type="text" matInput formControlName="email" />
+          <mat-error>{{ getError(registerForm.get('email')) }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput formControlName="password" />
+          <mat-error>{{ getError(registerForm.get('password')) }}</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" [disabled]="registerForm.invalid" *ngIf="!load">Registrate</button>
+        <mat-spinner color="primary" [diameter]="30" style="justify-self: center" *ngIf="load"></mat-spinner>
+        <mat-error>{{error}}</mat-error>
+      </form>
+      <p class="register">Ya tienes una cuenta ? <a routerLink="/login" mat-button color="primary">Ingresar</a></p>
+    </mat-card-content>
+  </mat-card>
+</div>
