@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "residential-vote": {
+      "hosting": {
+        "residentialVote": [
+          "residential-vote"
+        ]
+      }
+    }
+  }
+}

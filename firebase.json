@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "residentialVote",
+      "public": "dist/residentialVote",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

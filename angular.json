@@ -123,6 +123,10 @@
               "devServerTarget": "residentialVote:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
