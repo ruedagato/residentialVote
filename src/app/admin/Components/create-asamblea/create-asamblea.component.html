@@ -1,0 +1,70 @@
+<mat-horizontal-stepper>
+
+    <mat-step>
+        <ng-template matStepLabel>Asamblea</ng-template>
+        <!-- <form [formGroup]="form" (ngSubmit)="createUser($event)"> -->
+        <form>
+
+            <mat-card>
+
+                <mat-card-header>
+                    <mat-card-title>Crear nueva asamblea</mat-card-title>
+                </mat-card-header>
+
+
+                <mat-card-content>
+
+                    <div class="row">
+                        <div class="col-xs">
+                            <form [formGroup]="form">
+                                <ng-container formArrayName="arrayTypes">
+                                    <mat-card *ngFor="let item of types; let i = index" [formGroupName]="i" class="newGrid">
+                                        <mat-form-field>
+                                            <mat-label>Tipo</mat-label>
+                                            <input formControlName="tipo" matInput placeholder="Simple" type="text">
+                                        </mat-form-field>
+
+                                        <mat-form-field>
+                                            <mat-label>Area</mat-label>
+                                            <input formControlName="area" matInput placeholder="70" type="number">
+                                        </mat-form-field>
+
+                                        <mat-form-field>
+                                            <mat-label>Porcentaje</mat-label>
+                                            <input formControlName="porcentaje" matInput placeholder="10%" type="number">
+                                        </mat-form-field>
+
+                                        <div>
+                                            <button mat-fab color="secondary" style="margin-left: 25%;">
+                                                <mat-icon>plus_one</mat-icon>
+                                            </button>
+                                            <button mat-fab color="primary" style="margin-left: 25%;">
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
+
+                                        </div>
+
+                                    </mat-card>
+                                </ng-container>
+                            </form>
+                        </div>
+                    </div>
+
+                </mat-card-content>
+
+                <mat-card-actions>
+                    <button mat-raised-button type="submit" [disabled]="form.valid">Siguiente</button>
+                </mat-card-actions>
+
+            </mat-card>
+
+
+        </form>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Conjunto</ng-template>
+        <h1>Contenido</h1>
+    </mat-step>
+
+</mat-horizontal-stepper>
