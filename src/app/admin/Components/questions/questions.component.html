@@ -1,1 +1,68 @@
-<p>questions works!</p>
+<div class="content">
+  <div class="content__header">
+    <button mat-raised-button color="primary" (click)="isCreating = true" [disabled]="!!asamblea">
+      Crear Asamblea
+    </button>
+  </div>
+
+  <mat-card *ngIf="!isCreating && !asamblea">
+    <mat-card-content class="not-found">
+      <mat-icon class="icon">sentiment_dissatisfied</mat-icon>
+      <p>No hay asambleas activas en este momento</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="isCreating">
+    <mat-card-content class="create">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput [(ngModel)]="nameNewAsamblea" />
+      </mat-form-field>
+      <button mat-flat-button color="primary" [disabled]="!nameNewAsamblea" (click)="createAsamblea()">Crear</button>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="!!asamblea">
+    <mat-card-title>
+      <h1>{{ asamblea?.name }}</h1>
+    </mat-card-title>
+    <mat-card-content>
+      <div *ngFor="let q of asamblea?.questions">
+        <h3>{{q.name}}</h3>
+        <div class="display-questions">
+          <span *ngFor="let opt of q.options" class="item">{{opt.name}}</span>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Nombre de la pregunta</mat-label>
+          <input type="text" matInput #nameInp />
+        </mat-form-field>
+        <div class="new-question">
+          <ng-container *ngFor="let q of listNewOption; let i = index">
+            <p>{{ q }}</p>
+            <button mat-icon-button color="warn" (click)="deleteOption(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </ng-container>
+          <mat-form-field appearance="outline">
+            <mat-label>Opción</mat-label>
+            <input type="text" matInput #inpOpt />
+          </mat-form-field>
+          <button mat-flat-button color="primary" (click)="addOption(inpOpt)">Agregar</button>
+        </div>
+
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="listNewOption.length == 0"
+          (click)="createQuestion(nameInp)"
+        >
+          Crear Pregunta
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

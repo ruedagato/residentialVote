@@ -1,1 +1,33 @@
-<p>resident works!</p>
+<app-layout name="Perfil">
+  <ng-container menu>
+    <a mat-list-item href="#">Perfil</a>
+    <a mat-list-item href="#">Asambleas</a>
+  </ng-container>
+
+  <div body class="profile">
+    <mat-card>
+      <mat-card-title>
+        <h1>Datos del residente</h1>
+      </mat-card-title>
+      <mat-card-content>
+        <div class="date-content">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput readonly [value]="($user | async)?.displayName">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Correo</mat-label>
+            <input type="text" matInput readonly [value]="($user | async)?.email">
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-title>Apartamentos</mat-card-title>
+      <mat-card-actions>
+        <button mat-flat-button color="primary">Agregar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</app-layout>

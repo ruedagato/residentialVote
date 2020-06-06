@@ -1,0 +1,26 @@
+.profile {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 16px ;
+  & > mat-card:not(:first-child) {
+    margin-top: 40px;
+  }
+}
+
+.date-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+}
+
+mat-card-actions {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+
+@media screen and (max-width: 600px) {
+  .date-content {
+    grid-template-columns: 1fr;
+  }
+}

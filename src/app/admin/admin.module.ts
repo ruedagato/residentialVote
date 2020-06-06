@@ -24,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
     QuestionsComponent,
   ],
   imports: [
+    FormsModule,
     CommonModule,
     AdminRoutingModule,
     LayoutModule,
