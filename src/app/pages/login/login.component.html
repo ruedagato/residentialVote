@@ -1,20 +1,22 @@
 <div class="temp">
   <mat-card class="content">
     <mat-card-content>
-      <form class="form" autocomplete="off">
+      <form class="form" autocomplete="off" [formGroup]="loginForm" (ngSubmit)="login()">
         <mat-form-field appearance="outline">
           <mat-label>Correo</mat-label>
-          <input type="text" matInput />
+          <input type="text" matInput formControlName="email" />
+          <mat-error>{{ getError(loginForm.get('email')) }}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Contraseña</mat-label>
-          <input type="password" matInput />
+          <input type="password" matInput formControlName="password" />
+          <mat-error>{{ getError(loginForm.get('password')) }}</mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary">Entrar</button>
-        <p class="register">
-          No tienes una cuenta ? <a routerLink="/register" mat-button color="primary">registrate</a>
-        </p>
+        <button mat-raised-button color="primary" *ngIf="!load" [disabled]="loginForm.invalid">Entrar</button>
+        <mat-spinner color="primary" [diameter]="30" style="justify-self: center;" *ngIf="load"></mat-spinner>
+        <mat-error>{{ error }}</mat-error>
       </form>
+      <p class="register">No tienes una cuenta ? <a routerLink="/register" mat-button color="primary">registrate</a></p>
     </mat-card-content>
   </mat-card>
 </div>

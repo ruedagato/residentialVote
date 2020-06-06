@@ -20,6 +20,7 @@
 
         <button mat-raised-button color="primary" [disabled]="registerForm.invalid" *ngIf="!load">Registrate</button>
         <mat-spinner color="primary" [diameter]="30" style="justify-self: center" *ngIf="load"></mat-spinner>
+        <mat-error>{{error}}</mat-error>
       </form>
       <p class="register">Ya tienes una cuenta ? <a routerLink="/login" mat-button color="primary">Ingresar</a></p>
     </mat-card-content>
