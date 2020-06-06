@@ -1,35 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ResidentRoutingModule } from './resident-routing.module';
-import { ResidentComponent } from './resident.component';
+import { LayoutComponent } from './componets/layout/layout.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { ShareModule } from 'src/app/share/share.module';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatGridListModule } from '@angular/material/grid-list';
+
 
 
 @NgModule({
-  declarations: [ResidentComponent],
+  declarations: [LayoutComponent],
   imports: [
     CommonModule,
-    ResidentRoutingModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule,
-    ShareModule,
-    MatCardModule,
-    MatInputModule,
-    MatGridListModule,
+    MatListModule
   ],
+  exports: [LayoutComponent]
 })
-export class ResidentModule { }
+export class ShareModule { }
