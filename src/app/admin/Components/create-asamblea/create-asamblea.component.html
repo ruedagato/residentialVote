@@ -2,69 +2,101 @@
 
     <mat-step>
         <ng-template matStepLabel>Asamblea</ng-template>
-        <!-- <form [formGroup]="form" (ngSubmit)="createUser($event)"> -->
-        <form>
 
-            <mat-card>
+        <mat-card>
 
-                <mat-card-header>
-                    <mat-card-title>Crear nueva asamblea</mat-card-title>
-                </mat-card-header>
+            <mat-card-header>
+                <mat-card-title>Tipos de apartamentos</mat-card-title>
+            </mat-card-header>
 
-
-                <mat-card-content>
-
-                    <div class="row">
-                        <div class="col-xs">
-                            <form [formGroup]="form">
-                                <ng-container formArrayName="arrayTypes">
-                                    <mat-card *ngFor="let item of types; let i = index" [formGroupName]="i" class="newGrid">
-                                        <mat-form-field>
-                                            <mat-label>Tipo</mat-label>
-                                            <input formControlName="tipo" matInput placeholder="Simple" type="text">
-                                        </mat-form-field>
-
-                                        <mat-form-field>
-                                            <mat-label>Area</mat-label>
-                                            <input formControlName="area" matInput placeholder="70" type="number">
-                                        </mat-form-field>
-
-                                        <mat-form-field>
-                                            <mat-label>Porcentaje</mat-label>
-                                            <input formControlName="porcentaje" matInput placeholder="10%" type="number">
-                                        </mat-form-field>
-
-                                        <div>
-                                            <button mat-fab color="secondary" style="margin-left: 25%;">
-                                                <mat-icon>plus_one</mat-icon>
-                                            </button>
-                                            <button mat-fab color="primary" style="margin-left: 25%;">
-                                                <mat-icon>delete</mat-icon>
-                                            </button>
-
-                                        </div>
-
-                                    </mat-card>
-                                </ng-container>
-                            </form>
-                        </div>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col-xs">
+                        <mat-card class="newGrid" *ngFor="let type of aptoTypes; let i = index">
+                            <mat-form-field>
+                                <mat-label>Tipo</mat-label>
+                                <input matInput [(ngModel)]="type['tipo']" placeholder="Simple" type="text">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Area</mat-label>
+                                <input matInput [(ngModel)]="type['area']" placeholder="70" type="number">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Porcentaje</mat-label>
+                                <input matInput [(ngModel)]="type['porcentaje']" placeholder="10%" type="number">
+                            </mat-form-field>
+                            <div>
+                                <button mat-fab color="secondary" *ngIf="aptoTypes.length === (i+1)"
+                                    style="margin-left: 25%;" (click)="showValue()">
+                                    <mat-icon>plus_one</mat-icon>
+                                </button>
+                                <button mat-fab color="primary" style="margin-left: 25%;"
+                                    (click)="aptoTypes.splice(i,1)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </mat-card>
                     </div>
+                </div>
+            </mat-card-content>
 
-                </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button type="submit" matStepperNext>Siguiente</button>
+            </mat-card-actions>
 
-                <mat-card-actions>
-                    <button mat-raised-button type="submit" [disabled]="form.valid">Siguiente</button>
-                </mat-card-actions>
-
-            </mat-card>
+        </mat-card>
 
 
-        </form>
+
     </mat-step>
 
     <mat-step>
-        <ng-template matStepLabel>Conjunto</ng-template>
-        <h1>Contenido</h1>
+        <ng-template matStepLabel>Apartamentos</ng-template>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Tipos de apartamentos</mat-card-title>
+            </mat-card-header>
+            <mat-card class="newGrid">
+                <mat-form-field>
+                    <mat-label>Cantidad de torres</mat-label>
+                    <input matInput [(ngModel)]="torresCant" placeholder="20" type="number">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Cantidad de pisos por torre</mat-label>
+                    <input matInput [(ngModel)]="pisosCant" placeholder="20" type="number">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Cantidad de aptos por piso</mat-label>
+                    <input matInput [(ngModel)]="aptosCant" placeholder="20" type="number">
+                </mat-form-field>
+
+                <button mat-raised-button (click)="generateAptos()" [disabled]="aptos.length > 0">Generar</button>
+
+            </mat-card>
+        </mat-card>
+        <div *ngIf="aptos.length > 0">
+
+            <mat-card style="margin: 30px auto;" *ngFor="let apto of aptos">
+                <mat-form-field style="width: 60%;">
+                    <mat-label>Torre: {{apto.torre}} Piso: {{apto.piso}} Apartamento: {{apto.apto}}</mat-label>
+                    <input matInput disabled placeholder="">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Tipo de apartamento</mat-label>
+                    <mat-select [(value)]="apto.tipo">
+                        <mat-option *ngFor="let tipo of aptoTypes" [value]="tipo.tipo">{{tipo.tipo}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-card>
+
+            <button mat-raised-button (click)="guardarAptos()">Guardar</button>
+
+        </div>
+
+
+
     </mat-step>
 
 </mat-horizontal-stepper>

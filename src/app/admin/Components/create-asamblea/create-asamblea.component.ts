@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-asamblea',
@@ -8,43 +8,57 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateAsambleaComponent implements OnInit {
 
-  form: FormGroup;
-
-  types: any[] = [{
-    tipo: ['', [Validators.required]],
-    area: ['', [Validators.required]],
-    porcentaje: ['', [Validators.required]],
-  },
-  {
-    tipo: ['', [Validators.required]],
-    area: ['', [Validators.required]],
-    porcentaje: ['', [Validators.required]],
+  aptoTypes: object[] = [{
+    tipo: '',
+    area: '',
+    porcentaje: null,
   }]
 
+  torresCant: number = null;
+  pisosCant: number = null;
+  aptosCant: number = null;
 
-  constructor(
-    private formBuilder: FormBuilder,
-  ) {
-    this.buildForm();
-  }
+  aptos: object[] = []
+
+
+
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  private buildForm() {
 
-    this.form = this.formBuilder.group({
-      arrayTypes: this.formBuilder.array(
-        this.types.map(item => {
-          return this.formBuilder.group({
-            tipo: [item.tipo],
-            area: [item.area],
-            porcentaje: [item.porcentaje]
-          })
-        })
-      )
+  showValue() {
+    console.log(this.aptoTypes);
+    this.aptoTypes.push({
+      tipo: '',
+      area: '',
+      porcentaje: null,
     })
+  }
+
+  generateAptos() {
+    for (let i = 1; i <= this.torresCant; i++) {
+      for (let j = 1; j <= this.pisosCant; j++) {
+        for (let k = 1; k <= this.aptosCant; k++) {
+          this.aptos.push({
+            torre: i,
+            piso: j,
+            apto: k,
+            tipo: null
+          })
+        };
+      };
+    };
+    console.log(this.aptos);
+  }
+
+  guardarAptos() {
+    console.log(this.aptos);
     
   }
+
+
+
 
 }

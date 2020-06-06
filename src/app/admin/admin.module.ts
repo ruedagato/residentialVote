@@ -16,7 +16,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -36,7 +36,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatCardModule,
     MatInputModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule
   ],
 })
 export class AdminModule { }
