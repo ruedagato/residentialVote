@@ -25,7 +25,7 @@ export class QuestionsComponent implements OnInit {
           (data) =>
             data && {
               ...data,
-              questions: Object.values(data.questions).map((qst) => ({ ...qst, options: Object.values(qst.options) })),
+              questions: data.questions && Object.values(data.questions).map((qst) => ({ ...qst, options: qst.options || Object.values(qst.options) })),
             },
         ),
         tap((data) => console.log(data)),
