@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { aptoTypes, aptos } from '../../../core/models/asamblea.model'
 
 @Component({
   selector: 'app-create-asamblea',
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateAsambleaComponent implements OnInit {
 
-  aptoTypes: object[] = [{
+  APTO_TYPES: string = 'admin/residential/types'
+  APTOS_DEFINITION: string = 'admint/residential/definition'
+
+  aptoTypes: aptoTypes[] = [{
     tipo: '',
-    area: '',
+    area: null,
     porcentaje: null,
   }]
 
@@ -18,13 +22,25 @@ export class CreateAsambleaComponent implements OnInit {
   pisosCant: number = null;
   aptosCant: number = null;
 
-  aptos: object[] = []
+  aptos: aptos[] = []
 
 
 
-  constructor() { }
+  constructor(private db: AngularFireDatabase) { }
 
   ngOnInit(): void {
+    this.getDbInfo()
+  }
+
+  async getDbInfo() {
+    const oldTypes: any = await this.db.database.ref(this.APTO_TYPES).once('value');
+    if (oldTypes.exists()) {
+      this.aptoTypes = oldTypes.val()
+    }
+    const oldAptos: any = await this.db.database.ref(this.APTOS_DEFINITION).once('value')
+    if (oldAptos.exists()) {
+      this.aptos = oldAptos.val()
+    }
   }
 
 
@@ -32,7 +48,7 @@ export class CreateAsambleaComponent implements OnInit {
     console.log(this.aptoTypes);
     this.aptoTypes.push({
       tipo: '',
-      area: '',
+      area: null,
       porcentaje: null,
     })
   }
@@ -53,9 +69,12 @@ export class CreateAsambleaComponent implements OnInit {
     console.log(this.aptos);
   }
 
-  guardarAptos() {
-    console.log(this.aptos);
-    
+  async guardarAptos() {
+    await this.db.database.ref(this.APTO_TYPES).set(this.aptoTypes)
+    await this.db.database.ref(this.APTOS_DEFINITION).set(this.aptos)
+
+    alert('Informacion guardada con éxito')
+
   }
 
 

@@ -13,6 +13,8 @@ import { ShareModule } from 'src/app/share/share.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatCardModule,
     MatInputModule,
     MatGridListModule,
+    MatSelectModule,
+    FormsModule
   ],
 })
 export class ResidentModule { }

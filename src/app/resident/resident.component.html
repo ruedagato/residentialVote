@@ -25,9 +25,41 @@
 
     <mat-card>
       <mat-card-title>Apartamentos</mat-card-title>
-      <mat-card-actions>
-        <button mat-flat-button color="primary">Agregar</button>
-      </mat-card-actions>
+      <mat-card-header>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cantidad de apartamentos </mat-label>
+          <input type="number" matInput [(ngModel)]="aptosCant">
+        </mat-form-field>
+        <div style="margin: auto 20px;">
+          <button mat-flat-button color="primary" (click)="addAptos()">Agregar</button>
+        </div>
+      </mat-card-header>
     </mat-card>
+    <ng-container *ngIf="myAptos.length > 0">
+      <mat-card class="newGrid" *ngFor="let apto of myAptos">
+        <mat-form-field appearance="outline">
+          <mat-label>Torre</mat-label>
+          <mat-select [(value)]="apto.torre">
+            <mat-option *ngFor="let torre of (torres)" [value]="torre">Torre {{torre}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Piso</mat-label>
+          <mat-select [(value)]="apto.piso">
+            <mat-option *ngFor="let piso of (pisos)" [value]="piso">Piso {{piso}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Apartamento</mat-label>
+          <mat-select [(value)]="apto.apto">
+            <mat-option *ngFor="let apto of (apartamentos)" [value]="apto">Apartamento {{apto}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card>
+      <div style="margin: 20px 20px; display: flex; float: right;">
+        <button mat-flat-button color="primary" (click)="saveAptos()">Guardar</button>
+      </div>
+    </ng-container>
   </div>
 </app-layout>

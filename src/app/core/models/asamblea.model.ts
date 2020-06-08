@@ -18,3 +18,16 @@ export interface Questions {
     numSelected: number;
   }[];
 }
+
+export interface aptoTypes {
+  tipo: string;
+  area: number;
+  porcentaje: number;
+}
+
+export interface aptos {
+  torre: number;
+  piso: number;
+  apto: number;
+  tipo: string;
+}
