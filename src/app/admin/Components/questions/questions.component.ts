@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AsambleaModel, Questions } from 'src/app/core/models/asamblea.model';
+import { AssemblyModel, Questions } from 'src/app/core/models/assemblyModel';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { filter, map, take, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { AssemblyService } from '../../../core/assembly.service';
 
 @Component({
   selector: 'app-questions',
@@ -12,37 +13,26 @@ import { Observable } from 'rxjs';
 export class QuestionsComponent implements OnInit {
   isCreating = false;
   nameNewAsamblea: string;
-  asamblea: AsambleaModel;
+  asamblea: AssemblyModel;
   listNewOption: string[] = [];
 
-  constructor(private db: AngularFireDatabase) {
-    this.db
-      .list<AsambleaModel>('asambleas', (ref) => ref.orderByChild('active').equalTo(true))
-      .valueChanges()
+  constructor(private db: AngularFireDatabase, private assemblyService: AssemblyService) {
+    // TODO: change demo-conjunto for real conjunto
+    this.assemblyService
+      .getActiveAssembly('demo-conjunto')
       .pipe(
-        map((data) => (data.length > 0 ? data[0] : null)),
-        map(
-          (data) =>
-            data && {
-              ...data,
-              questions: data.questions && Object.values(data.questions).map((qst) => ({ ...qst, options: qst.options || Object.values(qst.options) })),
-            },
-        ),
-        tap((data) => console.log(data)),
+        filter((data) => data.length > 0),
+        map((data) => data[0]),
       )
-      .subscribe((as) => (this.asamblea = as));
+      .subscribe((data) =>  {
+        console.log(data);
+      });
   }
 
   ngOnInit(): void {}
 
-  async createAsamblea() {
-    const uid = this.db.createPushId();
-    const asamblea: AsambleaModel = {
-      name: this.nameNewAsamblea,
-      active: true,
-      uid,
-    };
-    await this.db.object(`asambleas/${uid}`).set(asamblea);
+  async createAssembly() {
+    await this.assemblyService.createAssembly(this.nameNewAsamblea, null);
     this.nameNewAsamblea = null;
     this.isCreating = false;
   }
@@ -57,20 +47,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   async createQuestion(inp: HTMLInputElement) {
-    const uidQ = this.db.createPushId();
-    const question: Questions = {
-      uid: uidQ,
-      name: inp.value,
-    };
-    this.db.object(`asambleas/${this.asamblea.uid}/questions/${uidQ}`).set(question);
-    for await (let name of this.listNewOption) {
-      const uidO = this.db.createPushId();
-      await this.db.object(`asambleas/${this.asamblea.uid}/questions/${uidQ}/options/${uidO}`).set({
-        name,
-        uid: uidO,
-        numSelected: 0,
-      });
-    }
+    await this.assemblyService.createQuestion(this.asamblea.uid, inp.value, this.listNewOption);
     inp.value = null;
     this.listNewOption = [];
   }
