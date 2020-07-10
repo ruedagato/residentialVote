@@ -18,7 +18,7 @@
         <mat-label>Nombre</mat-label>
         <input type="text" matInput [(ngModel)]="nameNewAsamblea" />
       </mat-form-field>
-      <button mat-flat-button color="primary" [disabled]="!nameNewAsamblea" (click)="createAsamblea()">Crear</button>
+      <button mat-flat-button color="primary" [disabled]="!nameNewAsamblea" (click)="createAssembly()">Crear</button>
     </mat-card-content>
   </mat-card>
 
@@ -27,13 +27,13 @@
       <h1>{{ asamblea?.name }}</h1>
     </mat-card-title>
     <mat-card-content>
-      <div *ngFor="let q of asamblea?.questions">
-        <h3>{{q.name}}</h3>
-        <div class="display-questions">
-          <span *ngFor="let opt of q.options" class="item">{{opt.name}}</span>
-        </div>
-        <mat-divider></mat-divider>
-      </div>
+<!--      <div *ngFor="let q of asamblea?.questions">-->
+<!--        <h3>{{q.name}}</h3>-->
+<!--        <div class="display-questions">-->
+<!--          <span *ngFor="let opt of q.options" class="item">{{opt.name}}</span>-->
+<!--        </div>-->
+<!--        <mat-divider></mat-divider>-->
+<!--      </div>-->
 
       <div>
         <mat-form-field appearance="outline" style="width: 100%;">

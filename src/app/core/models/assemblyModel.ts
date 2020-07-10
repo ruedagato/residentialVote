@@ -1,22 +1,25 @@
-export interface AsambleaModel {
-  name: string;
-  active: boolean;
+export interface AssemblyModel {
   uid: string;
-  residents?: {
-    name: string;
-    uid: string;
-  }[];
+  conjuntoUId: string;
+  name: string;
+  description?: string;
+  active: boolean;
   questions?: Questions[];
 }
 
 export interface Questions {
   uid: string;
+  label: string;
+  status: boolean;
+  assemblyUid: string;
+  options?: OptionQuestions[];
+  votes?: { [key: string]: string };
+}
+
+export interface OptionQuestions {
   name: string;
-  options?: {
-    name: string;
-    uid: string;
-    numSelected: number;
-  }[];
+  uid: string;
+  numSelected: number;
 }
 
 export interface AptoTypes {
