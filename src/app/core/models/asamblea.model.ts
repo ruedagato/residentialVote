@@ -19,13 +19,13 @@ export interface Questions {
   }[];
 }
 
-export interface aptoTypes {
+export interface AptoTypes {
   tipo: string;
   area: number;
   porcentaje: number;
 }
 
-export interface aptos {
+export interface Aptos {
   torre: number;
   piso: number;
   apto: number;

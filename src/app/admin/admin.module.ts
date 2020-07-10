@@ -5,40 +5,29 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './Components/layout/admin.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+
 import { CreateAsambleaComponent } from './components/create-asamblea/create-asamblea.component';
 import { QuestionsComponent } from './components/questions/questions.component';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
+
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
+import { MaterialModule } from '../material/material.module';
+import { InfotPopUpComponent } from './Components/infot-pop-up/infot-pop-up.component';
+
 @NgModule({
   declarations: [
     AdminComponent,
     CreateAsambleaComponent,
     QuestionsComponent,
+    InfotPopUpComponent,
   ],
   imports: [
     FormsModule,
     CommonModule,
     AdminRoutingModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatStepperModule,
-    MatCardModule,
-    MatInputModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSelectModule
+    MaterialModule
   ],
 })
 export class AdminModule { }

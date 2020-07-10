@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
-import { aptoTypes, aptos } from '../core/models/asamblea.model';
+import { AptoTypes, Aptos } from '../core/models/asamblea.model';
 
 @Component({
   selector: 'app-resident',
@@ -12,11 +12,11 @@ import { aptoTypes, aptos } from '../core/models/asamblea.model';
 })
 export class ResidentComponent implements OnInit {
 
-  APTOS_DEFINITION = 'admint/residential/definition';
+  APTOS_DEFINITION = 'admin/residential/definition';
 
-  aptos: aptos[] = [];
+  aptos: Aptos[] = [];
   // myAptos: object[] = [];
-  myAptos: Partial<aptos>[] = [];
+  myAptos: Partial<Aptos>[] = [];
 
   aptosCant = 1;
   $user: Observable<firebase.User | null>;
@@ -38,12 +38,15 @@ export class ResidentComponent implements OnInit {
     this.getAptoDef();
   }
   async getAptoDef() {
-    this.aptos = await (await this.db.database.ref(this.APTOS_DEFINITION).once('value')).val();
-    this.aptos.map(item => {
-      if (!this.torres.includes(item.torre)) { this.torres.push(item.torre); }
-      if (!this.pisos.includes(item.piso)) { this.pisos.push(item.piso); }
-      if (!this.apartamentos.includes(item.apto)) { this.apartamentos.push(item.apto); }
-    });
+    const snap = await this.db.database.ref(this.APTOS_DEFINITION).once('value');
+    this.aptos = snap.val();
+    if (this.aptos) {
+      this.aptos.map(item => {
+        if (!this.torres.includes(item.torre)) { this.torres.push(item.torre); }
+        if (!this.pisos.includes(item.piso)) { this.pisos.push(item.piso); }
+        if (!this.apartamentos.includes(item.apto)) { this.apartamentos.push(item.apto); }
+      });
+    }
   }
 
   addAptos() {
@@ -57,7 +60,7 @@ export class ResidentComponent implements OnInit {
   }
 
   saveAptos() {
-    this.db.database.ref()
+    this.db.database.ref();
   }
 
 

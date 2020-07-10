@@ -91,7 +91,11 @@
                 </mat-form-field>
             </mat-card>
 
-            <button mat-raised-button (click)="guardarAptos()">Guardar</button>
+            <button mat-raised-button (click)="guardarAptos()" [disabled]="!load">
+                <span *ngIf="load">Guardar</span>
+                <mat-spinner [diameter]="30" style="justify-self: center;" *ngIf="!load"></mat-spinner>
+
+            </button>
 
         </div>
 

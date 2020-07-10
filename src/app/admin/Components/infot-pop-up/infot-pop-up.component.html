@@ -1,0 +1,32 @@
+<form [formGroup]="form" *ngIf="form" (ngSubmit)="updateInfoUser($event)">
+    <!-- <form [formGroup]="form"> -->
+
+    <h2>Información general</h2>
+
+    <div>
+        <mat-form-field>
+            <input placeholder="Email" formControlName="email" matInput type="email">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field>
+            <input placeholder="Nombre completo" formControlName="nombre" matInput type="text">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field>
+            <input placeholder="Direccion del conjunto" formControlName="direccion" matInput type="text">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-form-field>
+            <input placeholder="Nombre del conjunto" formControlName="nombreConjunto" matInput type="text">
+        </mat-form-field>
+    </div>
+    <button mat-raised-button type="button" type="submit" [disabled]="form.invalid"
+        style="width: 100%;">Guardar</button>
+
+</form>
