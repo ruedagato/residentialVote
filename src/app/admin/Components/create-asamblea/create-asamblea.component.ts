@@ -1,21 +1,16 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-<<<<<<< HEAD
-import { AptoTypes, Aptos } from '../../../core/models/asamblea.model';
+import { AptoTypes, Aptos } from '../../../core/models/assemblyModel';
 
 import { UserService } from '../../../core/services/user/infoUser.service';
 import { DatabaseReference } from '@angular/fire/database/interfaces';
-
-=======
-import { aptoTypes, aptos } from '../../../core/models/assemblyModel';
->>>>>>> 84d230704bc97c37f49165113b09a4b7a37083a3
 
 @Component({
   selector: 'app-create-asamblea',
   templateUrl: './create-asamblea.component.html',
   styleUrls: ['./create-asamblea.component.scss'],
 })
-<<<<<<< HEAD
+
 export class CreateAsambleaComponent implements OnInit, AfterViewInit {
 
 
@@ -24,25 +19,12 @@ export class CreateAsambleaComponent implements OnInit, AfterViewInit {
     area: null,
     porcentaje: null,
   }]
-=======
-export class CreateAsambleaComponent implements OnInit {
-  APTO_TYPES = 'admin/residential/types';
-  APTOS_DEFINITION = 'admint/residential/definition';
 
-  aptoTypes: aptoTypes[] = [
-    {
-      tipo: '',
-      area: null,
-      porcentaje: null,
-    },
-  ];
->>>>>>> 84d230704bc97c37f49165113b09a4b7a37083a3
 
   torresCant: number = null;
   pisosCant: number = null;
   aptosCant: number = null;
 
-<<<<<<< HEAD
   aptos: Aptos[] = []
 
   conjRef: DatabaseReference;
@@ -65,30 +47,17 @@ export class CreateAsambleaComponent implements OnInit {
   ngAfterViewInit(): void {
     this.getDbInfo()
     throw new Error("Method not implemented.");
-=======
-  aptos: aptos[] = [];
-
-  constructor(private db: AngularFireDatabase) {}
-
-  ngOnInit(): void {
-    this.getDbInfo();
->>>>>>> 84d230704bc97c37f49165113b09a4b7a37083a3
   }
 
   async getDbInfo() {
-    debugger
     // const oldTypes: any = await this.db.database.ref(this.APTO_TYPES).once('value');
     const usr = await this.userService.getFullUser()
     const oldTypes: any = await this.conjRef.child(usr.ID_CONJUNTO).once('value')
     if (oldTypes.exists()) {
       this.aptoTypes = oldTypes.val();
     }
-<<<<<<< HEAD
     // const oldAptos: any = await this.db.database.ref(this.APTOS_DEFINITION).once('value')
     const oldAptos: any = await this.aptoRef.orderByChild('ID_CONJUNTO').equalTo(usr.ID_CONJUNTO).once('value')
-=======
-    const oldAptos: any = await this.db.database.ref(this.APTOS_DEFINITION).once('value');
->>>>>>> 84d230704bc97c37f49165113b09a4b7a37083a3
     if (oldAptos.exists()) {
       this.aptos = oldAptos.val();
     }
@@ -120,7 +89,6 @@ export class CreateAsambleaComponent implements OnInit {
   }
 
   async guardarAptos() {
-<<<<<<< HEAD
     this.load = !this.load
     const usr = await this.userService.getFullUser()
     await this.conjRef.child(usr.ID_CONJUNTO).set(this.aptoTypes)
@@ -141,19 +109,5 @@ export class CreateAsambleaComponent implements OnInit {
     })
     this.load = !this.load
     alert('Informacion guardada con éxito')
-
-    // console.log(this.aptos);
-
-
-
-    // await this.db.database.ref(this.APTOS_DEFINITION).set(this.aptos)
-
-
-=======
-    await this.db.database.ref(this.APTO_TYPES).set(this.aptoTypes);
-    await this.db.database.ref(this.APTOS_DEFINITION).set(this.aptos);
-
-    alert('Informacion guardada con éxito');
->>>>>>> 84d230704bc97c37f49165113b09a4b7a37083a3
   }
 }
