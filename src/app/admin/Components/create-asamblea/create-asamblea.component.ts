@@ -10,54 +10,47 @@ import { DatabaseReference } from '@angular/fire/database/interfaces';
   templateUrl: './create-asamblea.component.html',
   styleUrls: ['./create-asamblea.component.scss'],
 })
-
 export class CreateAsambleaComponent implements OnInit, AfterViewInit {
-
-
-  aptoTypes: AptoTypes[] = [{
-    tipo: '',
-    area: null,
-    porcentaje: null,
-  }]
-
+  aptoTypes: AptoTypes[] = [
+    {
+      tipo: '',
+      area: null,
+      porcentaje: null,
+    },
+  ];
 
   torresCant: number = null;
   pisosCant: number = null;
   aptosCant: number = null;
 
-  aptos: Aptos[] = []
+  aptos: Aptos[] = [];
 
   conjRef: DatabaseReference;
   aptoRef: DatabaseReference;
 
-  load: boolean = true;
+  load = true;
 
-
-
-  constructor(
-    private db: AngularFireDatabase,
-    private userService: UserService
-  ) {
+  constructor(private db: AngularFireDatabase, private userService: UserService) {
     this.conjRef = db.database.ref('conjuntos');
-    this.aptoRef = db.database.ref('apartamentos')
+    this.aptoRef = db.database.ref('apartamentos');
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.getDbInfo()
-    throw new Error("Method not implemented.");
+    this.getDbInfo();
+    throw new Error('Method not implemented.');
   }
 
   async getDbInfo() {
     // const oldTypes: any = await this.db.database.ref(this.APTO_TYPES).once('value');
-    const usr = await this.userService.getFullUser()
-    const oldTypes: any = await this.conjRef.child(usr.ID_CONJUNTO).once('value')
+    const usr = await this.userService.getFullUser();
+    const oldTypes: any = await this.conjRef.child(usr.ID_CONJUNTO).once('value');
     if (oldTypes.exists()) {
       this.aptoTypes = oldTypes.val();
     }
     // const oldAptos: any = await this.db.database.ref(this.APTOS_DEFINITION).once('value')
-    const oldAptos: any = await this.aptoRef.orderByChild('ID_CONJUNTO').equalTo(usr.ID_CONJUNTO).once('value')
+    const oldAptos: any = await this.aptoRef.orderByChild('ID_CONJUNTO').equalTo(usr.ID_CONJUNTO).once('value');
     if (oldAptos.exists()) {
       this.aptos = oldAptos.val();
     }
@@ -89,11 +82,11 @@ export class CreateAsambleaComponent implements OnInit, AfterViewInit {
   }
 
   async guardarAptos() {
-    this.load = !this.load
-    const usr = await this.userService.getFullUser()
-    await this.conjRef.child(usr.ID_CONJUNTO).set(this.aptoTypes)
-    this.aptos.map(apto => {
-      const aptoID: string = this.db.createPushId()
+    this.load = !this.load;
+    const usr = await this.userService.getFullUser();
+    await this.conjRef.child(usr.ID_CONJUNTO).set(this.aptoTypes);
+    this.aptos.map((apto) => {
+      const aptoID: string = this.db.createPushId();
       this.aptoRef.child(aptoID).set({
         ID_CONJUNTO: usr.ID_CONJUNTO,
         ID_PROPIETATIO: null,
@@ -101,13 +94,12 @@ export class CreateAsambleaComponent implements OnInit, AfterViewInit {
         info: {
           apto: apto.apto,
           torre: apto.torre,
-          piso: apto.piso
-
+          piso: apto.piso,
         },
-        status: true
-      })
-    })
-    this.load = !this.load
-    alert('Informacion guardada con éxito')
+        status: true,
+      });
+    });
+    this.load = !this.load;
+    alert('Informacion guardada con éxito');
   }
 }
