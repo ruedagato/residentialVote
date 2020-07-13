@@ -12,7 +12,7 @@
             <mat-card-content>
                 <div class="row">
                     <div class="col-xs">
-                        <mat-card class="newGrid" *ngFor="let type of aptoTypes; let i = index">
+                        <mat-card class="newGrid" *ngFor="let type of aptTypes; let i = index">
                             <mat-form-field>
                                 <mat-label>Tipo</mat-label>
                                 <input matInput [(ngModel)]="type['tipo']" placeholder="Simple" type="text">
@@ -26,12 +26,12 @@
                                 <input matInput [(ngModel)]="type['porcentaje']" placeholder="10%" type="number">
                             </mat-form-field>
                             <div>
-                                <button mat-fab color="secondary" *ngIf="aptoTypes.length === (i+1)"
+                                <button mat-fab color="secondary" *ngIf="aptTypes.length === (i+1)"
                                     style="margin-left: 25%;" (click)="showValue()">
                                     <mat-icon>plus_one</mat-icon>
                                 </button>
                                 <button mat-fab color="primary" style="margin-left: 25%;"
-                                    (click)="aptoTypes.splice(i,1)">
+                                    (click)="aptTypes.splice(i,1)">
                                     <mat-icon>delete</mat-icon>
                                 </button>
                             </div>
@@ -86,7 +86,7 @@
                 <mat-form-field>
                     <mat-label>Tipo de apartamento</mat-label>
                     <mat-select [(value)]="apto.tipo">
-                        <mat-option *ngFor="let tipo of aptoTypes" [value]="tipo.tipo">{{tipo.tipo}}</mat-option>
+                        <mat-option *ngFor="let tipo of aptTypes" [value]="tipo.tipo">{{tipo.tipo}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </mat-card>

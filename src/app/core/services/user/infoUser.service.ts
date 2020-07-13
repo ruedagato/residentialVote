@@ -5,9 +5,10 @@ import { DatabaseReference } from '@angular/fire/database/interfaces';
 
 // models
 import { User } from '../../../core/models/user.model';
+import { switchMap, take } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   // VARIABLES
@@ -17,10 +18,7 @@ export class UserService {
 
   private current: firebase.User;
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    private db: AngularFireDatabase,
-  ) {
+  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.dbRef = db.database.ref('user');
   }
 
@@ -37,13 +35,10 @@ export class UserService {
   }
 
   async getFullUser() {
-    if (this.usuario) {
-      return this.usuario;
-    } else {
-      const usr = await this.dbRef.child(this.current.uid).once('value');
-      this.usuario = usr.val();
-      return this.usuario;
-    }
+    return this.afAuth.user.pipe(
+      take(1),
+      switchMap(({ uid }) => this.db.object(`user/${uid}`).valueChanges()),
+    );
   }
 
   getUserMail() {
@@ -54,12 +49,8 @@ export class UserService {
     return this.current.uid;
   }
 
-
-
-
-
   async setAdminInfo(info: User) {
-    const usr = await this.afAuth.currentUser.then(data => data);
+    const usr = await this.afAuth.currentUser.then((data) => data);
     this.dbRef.child(usr.uid).set(info);
   }
 }

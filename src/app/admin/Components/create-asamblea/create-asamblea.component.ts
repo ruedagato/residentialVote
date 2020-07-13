@@ -11,7 +11,7 @@ import { DatabaseReference } from '@angular/fire/database/interfaces';
   styleUrls: ['./create-asamblea.component.scss'],
 })
 export class CreateAsambleaComponent implements OnInit, AfterViewInit {
-  aptoTypes: AptoTypes[] = [
+  aptTypes: AptoTypes[] = [
     {
       tipo: '',
       area: null,
@@ -39,26 +39,25 @@ export class CreateAsambleaComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.getDbInfo();
-    throw new Error('Method not implemented.');
   }
 
   async getDbInfo() {
-    // const oldTypes: any = await this.db.database.ref(this.APTO_TYPES).once('value');
-    const usr = await this.userService.getFullUser();
-    const oldTypes: any = await this.conjRef.child(usr.ID_CONJUNTO).once('value');
-    if (oldTypes.exists()) {
-      this.aptoTypes = oldTypes.val();
-    }
-    // const oldAptos: any = await this.db.database.ref(this.APTOS_DEFINITION).once('value')
-    const oldAptos: any = await this.aptoRef.orderByChild('ID_CONJUNTO').equalTo(usr.ID_CONJUNTO).once('value');
-    if (oldAptos.exists()) {
-      this.aptos = oldAptos.val();
-    }
+    // // const oldTypes: any = await this.db.database.ref(this.APTO_TYPES).once('value');
+    // const usr = await this.userService.getFullUser();
+    // const oldTypes: any = await this.conjRef.child(usr.ID_CONJUNTO).once('value');
+    // if (oldTypes.exists()) {
+    //   this.aptTypes = oldTypes.val();
+    // }
+    // // const oldAptos: any = await this.db.database.ref(this.APTOS_DEFINITION).once('value')
+    // const oldAptos: any = await this.aptoRef.orderByChild('ID_CONJUNTO').equalTo(usr.ID_CONJUNTO).once('value');
+    // if (oldAptos.exists()) {
+    //   this.aptos = oldAptos.val();
+    // }
   }
 
   showValue() {
-    console.log(this.aptoTypes);
-    this.aptoTypes.push({
+    console.log(this.aptTypes);
+    this.aptTypes.push({
       tipo: '',
       area: null,
       porcentaje: null,
@@ -84,7 +83,7 @@ export class CreateAsambleaComponent implements OnInit, AfterViewInit {
   async guardarAptos() {
     this.load = !this.load;
     const usr = await this.userService.getFullUser();
-    await this.conjRef.child(usr.ID_CONJUNTO).set(this.aptoTypes);
+    await this.conjRef.child(usr.ID_CONJUNTO).set(this.aptTypes);
     this.aptos.map((apto) => {
       const aptoID: string = this.db.createPushId();
       this.aptoRef.child(aptoID).set({
