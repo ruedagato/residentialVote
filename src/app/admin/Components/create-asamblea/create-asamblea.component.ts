@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { AptoTypes, Aptos } from '../../../core/models/assemblyModel';
+import { AptoTypes, Aptos } from 'app/core/models/assemblyModel';
 
-import { UserService } from '../../../core/services/user/infoUser.service';
+import { UserService } from 'app/core/services/user/infoUser.service';
 import { DatabaseReference } from '@angular/fire/database/interfaces';
 
 @Component({
@@ -81,24 +81,24 @@ export class CreateAsambleaComponent implements OnInit, AfterViewInit {
   }
 
   async guardarAptos() {
-    this.load = !this.load;
-    const usr = await this.userService.getFullUser();
-    await this.conjRef.child(usr.ID_CONJUNTO).set(this.aptTypes);
-    this.aptos.map((apto) => {
-      const aptoID: string = this.db.createPushId();
-      this.aptoRef.child(aptoID).set({
-        ID_CONJUNTO: usr.ID_CONJUNTO,
-        ID_PROPIETATIO: null,
-        tipo: apto.tipo,
-        info: {
-          apto: apto.apto,
-          torre: apto.torre,
-          piso: apto.piso,
-        },
-        status: true,
-      });
-    });
-    this.load = !this.load;
-    alert('Informacion guardada con éxito');
+    // this.load = !this.load;
+    // const usr = await this.userService.getFullUser();
+    // await this.conjRef.child(usr.ID_CONJUNTO).set(this.aptTypes);
+    // this.aptos.map((apto) => {
+    //   const aptoID: string = this.db.createPushId();
+    //   this.aptoRef.child(aptoID).set({
+    //     ID_CONJUNTO: usr.ID_CONJUNTO,
+    //     ID_PROPIETATIO: null,
+    //     tipo: apto.tipo,
+    //     info: {
+    //       apto: apto.apto,
+    //       torre: apto.torre,
+    //       piso: apto.piso,
+    //     },
+    //     status: true,
+    //   });
+    // });
+    // this.load = !this.load;
+    // alert('Informacion guardada con éxito');
   }
 }

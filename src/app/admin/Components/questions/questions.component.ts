@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AssemblyModel, Questions } from 'src/app/core/models/assemblyModel';
+import { AssemblyModel } from 'app/core/models/assemblyModel';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { filter, map, take, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { AssemblyService } from '../../../core/assembly.service';
+import { filter, map } from 'rxjs/operators';
+import { AssemblyService } from 'app/core/assembly.service';
 
 @Component({
   selector: 'app-questions',

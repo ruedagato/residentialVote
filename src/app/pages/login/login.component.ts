@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { UserService } from '../../core/services/user/infoUser.service';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +18,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     formBuilder: FormBuilder,
     private afAuth: AngularFireAuth,
-    private db: AngularFireDatabase,
-    private userService: UserService
   ) {
     this.loginForm = formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -48,8 +44,7 @@ export class LoginComponent implements OnInit {
     try {
       const user = await this.afAuth.signInWithEmailAndPassword(email, password);
       const tokenUser = await user.user.getIdTokenResult();
-      this.userService.setCurrent(user.user);
-      this.redirectUSer(user.user.uid, tokenUser.claims.rol);
+      this.redirectUSer(user.user.uid, tokenUser.claims.role);
     } catch (err) {
       this.load = false;
       this.error = err.message;

@@ -11,14 +11,14 @@ import { QuestionsComponent } from './components/questions/questions.component';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
-import { InfotPopUpComponent } from './Components/infot-pop-up/infot-pop-up.component';
+import { InfoPopUpComponent } from 'app/admin/Components/infot-pop-up/info-pop-up.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     CreateAsambleaComponent,
     QuestionsComponent,
-    InfotPopUpComponent,
+    InfoPopUpComponent,
   ],
   imports: [
     FormsModule,

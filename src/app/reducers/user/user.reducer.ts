@@ -1,14 +1,16 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { UserRole } from '../../core/models/user.model';
-
-export const userFeatureKey = 'user';
+import { createReducer, on } from '@ngrx/store';
+import * as userAction from './user.actions';
+import { AdminModel } from 'app/core/models/admin.model';
 
 export interface State {
-  role: UserRole;
+  admin: AdminModel;
 }
 
 export const initialState: State = {
-  role: null,
+  admin: null,
 };
 
-export const reducer = createReducer(initialState);
+export const reducer = createReducer(
+  initialState,
+  on(userAction.loadComplete, (state, { user }) => ({ ...state, admin: user })),
+);

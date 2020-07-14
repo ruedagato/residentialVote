@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map, shareReplay, take } from 'rxjs/operators';
-import { User } from '../../../core/models/user.model';
-import { UserService } from '../../../core/services/user/infoUser.service';
+import { filter, map, shareReplay, take } from 'rxjs/operators';
+import { UserService } from 'app/core/services/user/infoUser.service';
 import { MatDialog } from '@angular/material/dialog';
-import { InfotPopUpComponent } from '../infot-pop-up/infot-pop-up.component';
+import { InfoPopUpComponent } from 'app/admin/Components/infot-pop-up/info-pop-up.component';
 import { Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { DatabaseReference } from '@angular/fire/database/interfaces';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { Store } from '@ngrx/store';
+import { State } from 'app/reducers';
+import { AdminModel } from 'app/core/models/admin.model';
 
 @Component({
   selector: 'app-admin',
@@ -22,9 +23,8 @@ export class AdminComponent implements OnInit {
     shareReplay(),
   );
 
-  usuario: User;
-
   private dbRef: DatabaseReference;
+  private user$: Observable<AdminModel>;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -32,34 +32,34 @@ export class AdminComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth,
+    private store: Store<State>,
   ) {
     this.dbRef = db.database.ref('user');
-    this.afAuth.user.pipe(
-      take(1)
-    ).subscribe(user => {
-      this.userService.setCurrent(user);
-      this.usrExist();
-    });
+    this.user$ = this.store.select((state) => state.user.admin);
   }
-
-
 
   ngOnInit(): void {
+    this.validateUserStatus();
   }
 
-  async usrExist() {
-    this.usuario = await this.userService.getFullUser();
-    if (this.usuario && this.usuario.info) {
-      this.router.navigate(['/admin/asamblea']);
-    } else {
-      this.openInfoFormPopUp();
-    }
+  private validateUserStatus() {
+    this.user$
+      .pipe(
+        filter((data) => !!data),
+        take(1),
+      )
+      .subscribe((data) => {
+        if (data.info) {
+          this.router.navigate(['/admin/asamblea']);
+        } else {
+          this.openInfoFormPopUp();
+        }
+      });
   }
 
   openInfoFormPopUp() {
-    const dialogRef = this.dialog.open(InfotPopUpComponent, { disableClose: true });
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(InfoPopUpComponent, { disableClose: true });
+    dialogRef.afterClosed().subscribe(() => {
       this.router.navigate(['/admin/asamblea']);
     });
   }
